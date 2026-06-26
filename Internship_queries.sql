@@ -57,5 +57,33 @@ select count(*) as total_no from candidate_skill;
 
 -- Aggregate Fun ction Questions (16–25)
 -- 16.How many jobs has each company posted?
+select company_id,count(job_id) as total_job from job group by company_id;
+-- 17.How many applications has each candidate submitted?
+select * from applications;
+select * from candidates;
+select candidate_id, count(application_id) total_applicants from applications group by candidate_id;
+-- 18.How many candidates applied for each job?
+select * from candidates;
+select current_role,count(candidate_id) as total from candidates group by current_role;
+select * from job;
+-- 19.What is the average salary offered by each company?
+select * from companies;
+select * from job;
+select company_id,avg((salary_min + salary_max)/2) as avg_salary from job group by company_id;
+-- 20.What is the highest salary offered by each company?
+select * from job;
+select company_id,max((salary_max + salary_min)/2) as highest_sal from job  group by  company_id order by highest_sal desc;
 
-
+-- 21.What is the lowest salary offered by each company?
+select company_id,min((salary_min + salary_max)/2) as lowest_sal from job group by company_id order by lowest_sal desc;
+-- 22.What is the average salary of all job postings?
+select  avg((salary_min + salary_max)/2) as avg_sal from job ;
+-- 23.How many interviews have been conducted for each interview status?
+select * from interviews;
+select interview_status,count(interview_id) as total_interview from interviews group by interview_status;
+-- 24.How many applications are there for each application status?
+select * from applications;
+select status, count(application_id) as total_applicants from applications group by status;
+-- 25.Which skills are most common among candidates?
+select * from candidate_skill;
+select count(candidate_id)as total_candidates, skill_name from candidate_skill group by skill_name order by total_candidates;
