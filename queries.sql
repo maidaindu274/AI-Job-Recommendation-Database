@@ -27,11 +27,16 @@ select * from job;
 -- 9.Show all applications where status is 'Applied'.
 select * from applications where status = "Applied";
 -- 10.Show all shortlisted candidates.
-select candidate_id, status  from applications where status = "Shortlisted";
+select candidate_id,  status  from applications where status = "Shortlisted";
+select * from candidates;
+select * from applications;
+select a.candidate_id, c.candidate_name from candidates as c inner join applications as a on 
+c.candidate_id = a.candidate_id where a.status = "Shortlisted";
 -- 11.Show all selected interview records.
 select * from interviews where interview_status = "Selected";
 -- 12.List all unique industries available in companies.
-select distinct company_name from companies;
+select distinct industry from companies;
+select * from companies;
 select company_name from companies group by company_name;
 -- 13.List all unique job locations.
 select * from job;
@@ -39,18 +44,31 @@ select distinct location from job;
 -- 14.List all unique skills required by jobs.
 select distinct skill_name from job_skills;
 -- 15.List all unique skills possessed by candidates.
+select distinct skill_name from candidate_skill;
 -- Aggregate Functions (16–25)
 -- 16.How many jobs has each company posted?
+select company_id,count(job_id) as total_jobs from job group by company_id;
 
 -- 17.How many applications has each candidate submitted?
+select candidate_id,count(application_id) as total_applications from applications group by candidate_id;
 -- 18.How many candidates applied for each job?
+select job_id,count(candidate_id) from applications group by job_id;
+
 -- 19.Find the average salary offered for each company.
+select * from job;
+select  company_id, avg((salary_min+salary_max)/2)  as avg_sal   from job group by company_id;
 -- 20.Find the highest salary offered by each company.
+select  company_id, max((salary_min+salary_max)/2) as highest_sal from job group by company_id;
 -- 21.Find the lowest salary offered by each company.
+select min((salary_min+salary_max)/2) as lowest_sal, company_id from job group by company_id;
 -- 22.Find the average salary of all job postings.
+select avg((salary_min + salary_max)/2) as avg_sal from job ;
 -- 23.Count interviews based on interview status.
+select count(*) , interview_status from interviews group by interview_status;
 -- 24.Count applications based on application status.
+select count(*), status from applications group by status;
 -- 25.Find the most common skills among candidates.
+select count(*) as total, skill_name from candidate_skill group by skill_name order by total desc limit 5;
 -- WHERE / HAVING / GROUP BY (26–35)
 -- 26.Find companies having more than 10 job postings.
 -- 27.Find candidates who have experience greater than 5 years.

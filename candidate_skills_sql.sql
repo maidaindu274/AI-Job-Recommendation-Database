@@ -8,3 +8,4 @@ CREATE TABLE candidate_skill (
 
 );
 select * from candidate_skill;
+desc candidate_skill;

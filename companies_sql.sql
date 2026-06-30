@@ -1,5 +1,6 @@
-create database job_recommendation;
-use job_recommendation;
+create database job_recommendations;
+use job_recommendations;
+drop database job_recommendation;
 CREATE TABLE companies (
 
     company_id INT PRIMARY KEY,

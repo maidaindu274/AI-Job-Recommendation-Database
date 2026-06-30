@@ -16,10 +16,11 @@ CREATE TABLE job (
 
     employment_type VARCHAR(50),
 
-    posted_date DATE,
-
-    FOREIGN KEY (company_id)
-    REFERENCES companies(company_id)
+    posted_date DATE
 
 );
+select * from job;
+
+desc job;
+
 select * from job;
