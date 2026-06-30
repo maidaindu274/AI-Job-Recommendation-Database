@@ -37,6 +37,7 @@ select company_name from companies group by company_name;
 select * from job;
 select distinct location from job;
 -- 14.List all unique skills required by jobs.
+select distinct skill_name from job_skills;
 -- 15.List all unique skills possessed by candidates.
 -- Aggregate Functions (16–25)
 -- 16.How many jobs has each company posted?
