@@ -1,23 +1,46 @@
-use job_recommendation;
+use job_recommendations;
 show tables;
+select * from companies;
+select * from candidates;
+select * from candidate_skill;
+select * from job;
+select * from job_skills;
+select * from applications;
+select * from interviews;
 -- Basic SQL Queries (1–15)
 -- 1.How many candidates are registered in the system?
+select count(candidate_id) as total_candidates from candidates;
 -- 2.How many companies are available in the database?
+select count(company_id) as total_companies from companies;
 -- 3.How many jobs are posted in total?
+select count(job_id) as total_job from job;
 -- 4.How many applications have been submitted?
+select count(application_id) as total_applications from applications;
 -- 5.How many interviews have been conducted?
+select count(interview_id) as total_interviews from interviews;
 -- 6.Show all candidate details.
+select * from candidates;
 -- 7.Show all company details.
+select * from companies;
 -- 8.Show all job details.
+select * from job;
 -- 9.Show all applications where status is 'Applied'.
+select * from applications where status = "Applied";
 -- 10.Show all shortlisted candidates.
+select candidate_id, status  from applications where status = "Shortlisted";
 -- 11.Show all selected interview records.
+select * from interviews where interview_status = "Selected";
 -- 12.List all unique industries available in companies.
+select distinct company_name from companies;
+select company_name from companies group by company_name;
 -- 13.List all unique job locations.
+select * from job;
+select distinct location from job;
 -- 14.List all unique skills required by jobs.
 -- 15.List all unique skills possessed by candidates.
 -- Aggregate Functions (16–25)
 -- 16.How many jobs has each company posted?
+
 -- 17.How many applications has each candidate submitted?
 -- 18.How many candidates applied for each job?
 -- 19.Find the average salary offered for each company.
