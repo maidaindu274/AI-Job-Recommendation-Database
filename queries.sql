@@ -100,15 +100,60 @@ select * from applications;
 select status, count(application_id) as total_applications from applications group by status having total_applications >100;
 -- JOIN Questions (36–45)
 -- 36.Display company name with their job titles.
+select * from companies;
+select * from job;
+select c.company_name, j.job_title from companies as c inner join job as j on 
+c.company_id = j.company_id;
 -- 37.Display candidate names with their applied job titles.
+select * from candidates;
+select * from job;
+select c.candidate_name, j.job_title, a.status from applications as a inner join job as j on
+a.job_id = j.job_id inner join candidates as c on
+a.candidate_id = c.candidate_id;
 -- 38.Show all jobs with company names.
+select j.job_id,j.job_title,j.location,c.company_name
+from job as j inner join companies as c on
+j.company_id = c.company_id;
 -- 39.Show candidate name, skill name, and proficiency.
+select * from candidates;
+select * from candidate_skill;
+select c.candidate_name, cs.skill_name, cs.proficiency from candidates as c inner join candidate_skill as cs on
+c.candidate_id = cs.candidate_id;
 -- 40.Show job title with required skills.
+select * from job;
+select * from job_skills;
+select j.job_title, js.skill_name from job as j inner join job_skills as js on
+j.job_id = js.job_id;
 -- 41.Find candidates who applied for jobs in their preferred location.
+select * from candidates;
+select * from applications;
+select * from job;
+select c.candidate_id, c.candidate_name, c.preferred_location, j.location, j.job_title from candidates as c inner join applications as a on 
+c.candidate_id = a.candidate_id inner join job as j on 
+a.job_id = j.job_id;
 -- 42.Show company name, job title, and salary range.
+select c.company_name, j.job_title, CONCAT(j.salary_min,' - ',j.salary_max) AS salary_range
+ from companies as c inner join 
+job as j on 
+c.company_id = j.company_id;
 -- 43.Display interview details with candidate names.
+select * from interviews;
+select * from candidates;
+select * from applications;
+select i.interview_id, i.interview_date, i.interview_status, i.feedback_score, c.candidate_name from candidates as c inner join applications as a on 
+c.candidate_id = a.candidate_id inner join interviews as i on 
+a.application_id = i.application_id;
 -- 44.Display selected candidates with company names.
+select cd.candidate_name, c.company_name, i.interview_status from companies as c inner join job as j on 
+c.company_id = j.company_id inner join applications as a on 
+j.job_id = a.job_id inner join interviews as i on 
+a.application_id = i.application_id inner join  candidates as cd on
+cd.candidate_id = a.candidate_id where i.interview_status = "Selected";
 -- 45.Find candidates who applied for more than one job.
+select c.candidate_id, c.candidate_name, count(a.job_id) as total_applied_job  from candidates as c 
+inner join applications as a on
+c.candidate_id = a.candidate_id group by  c.candidate_id, c.candidate_name having count(a.job_id)>1;
+ 
 -- Advanced SQL Questions (46–50)
 -- 46.Find the top 5 companies with the highest number of job postings.
 -- 47.Find the top 5 highest paying jobs.
