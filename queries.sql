@@ -71,15 +71,33 @@ select count(*), status from applications group by status;
 select count(*) as total, skill_name from candidate_skill group by skill_name order by total desc limit 5;
 -- WHERE / HAVING / GROUP BY (26–35)
 -- 26.Find companies having more than 10 job postings.
+select company_id, count(job_id) as total_jobs  from job group by company_id having total_jobs>10;
 -- 27.Find candidates who have experience greater than 5 years.
+select * from candidates;
+select * from candidates where experience_years > 5;
 -- 28.Find jobs where salary_max is greater than 100000.
--- 29.Find jobs posted after 2025.
+select * from job;
+select * from job where salary_max > 100000;
+-- 29.Find jobs posted after 2024.
+select * from job where year(posted_date) > "2024";
 -- 30.Find candidates from a specific city.
+select  * from candidates where city = "Pune" ;
 -- 31.Find average salary of jobs by location.
+select * from job;
+select avg((salary_min + salary_max)/2), location from job group by location;
 -- 32.Show only locations having more than 20 jobs.
+select * from job;
+select location, count(job_id) as total from job group by location having count(job_id)>20;
 -- 33.Find companies whose average rating is greater than 4.
+select * from companies;
+select avg(rating) as avg_rating, company_id from companies group by company_id having avg(rating)>4;
 -- 34.Find skills which appear more than 50 times in job requirements.
+select * from job;
+select skill_name, count(skill_name) as total  from job_skills group by skill_name having total > 50;
+
 -- 35.Find application statuses having more than 100 records.
+select * from applications;
+select status, count(application_id) as total_applications from applications group by status having total_applications >100;
 -- JOIN Questions (36–45)
 -- 36.Display company name with their job titles.
 -- 37.Display candidate names with their applied job titles.
