@@ -156,9 +156,23 @@ c.candidate_id = a.candidate_id group by  c.candidate_id, c.candidate_name havin
  
 -- Advanced SQL Questions (46–50)
 -- 46.Find the top 5 companies with the highest number of job postings.
+select * from job;
+select * from candidates;
+select count(j.job_id) as no_of_job , c.company_id, c.company_name from companies as c inner join job as j on
+c.company_id = j.company_id group by c.company_id, c.company_name  order by no_of_job desc limit 5 ;
 -- 47.Find the top 5 highest paying jobs.
+select job_id, job_title, (salary_max + salary_min)/2 as highest_salary  from job  
+order by highest_salary  desc limit 5;
+ 
 -- 48.Find the most demanded skills according to job requirements.
+select count(job_id) total_job , skill_name from job_skills group by skill_name order by total_job desc  limit 5;
+
+select * from job;
 -- 49.Find candidates who have skills matching job required skills.
+
+select cs.candidate_id, c.candidate_name,js.skill_name from candidate_skill as cs inner join applications as a on 
+cs.candidate_id = a.candidate_id inner join job_skills as js on 
+a.job_id = js.job_id   inner join candidates as c on c.candidate_id = cs.candidate_id  where cs.skill_name = js.skill_name;
 -- 50.Create a report showing:
 -- Candidate Name
 -- Applied Job
@@ -166,4 +180,9 @@ c.candidate_id = a.candidate_id group by  c.candidate_id, c.candidate_name havin
 -- Application Status
 -- Interview Status
 -- Feedback Score
-
+select cd.candidate_name, j.job_title as applied_job, c.company_name,  a.status as application_status, i.interview_status,
+    i.feedback_score from candidates as cd inner join applications as a on 
+cd.candidate_id = a.candidate_id inner join job as j on 
+a.job_id = j.job_id  inner join companies as c on 
+c.company_id = j.company_id inner join  interviews as i on 
+a.application_id = i.application_id;
